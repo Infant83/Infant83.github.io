@@ -1,0 +1,363 @@
+<!-- Chosen Palette: Neo-Brutalism (Light Gray, Neon Yellow, Vivid Blue, Neon Pink, Terminal Green, Solid Black) -->
+<!-- Application Structure Plan: A single-page dashboard designed for high-impact exploration. It is divided into 'Terminal Intro', 'Data Dashboard (Interactive Chart)', 'Core Modules (Philosophy)', and 'Output Stream (Multitudes)'. This non-linear structure prioritizes immediate data consumption and interactive discovery over a traditional static resume format. The layout uses CSS Grid and Flexbox with brutalist aesthetics to encourage active user interaction. -->
+<!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Method -> Interaction -> Justification. 1. Career/Skills Data -> Compare & Inform -> Chart.js Bar & Polar Area -> Toggle Buttons -> Visually translates abstract career timelines into hard, explorable data metrics. 2. Philosophy -> Organize -> Brutalist Flex Cards -> Hover transformations -> Forces focus on text via high contrast. 3. Extracurriculars -> Categorize -> Interactive Grid -> Filter Buttons -> Allows user to navigate diverse interests easily without SVG usage (relying entirely on Unicode emojis and Tailwind). -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIM HYUN-JUNG | AI GOVERNANCE DATA SPA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Helvetica', 'Arial', '"Noto Sans KR"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    },
+                    colors: {
+                        brutalBg: '#e5e5e5',
+                        brutalYellow: '#fff000',
+                        brutalBlue: '#0044ff',
+                        brutalPink: '#ff0055',
+                        brutalGreen: '#00ff44',
+                    },
+                    boxShadow: {
+                        'brutal': '8px 8px 0px 0px rgba(0,0,0,1)',
+                        'brutal-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #e5e5e5;
+            background-image: radial-gradient(#000 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #000;
+        }
+        ::selection {
+            background: #fff000;
+            color: #000;
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+            background-color: #fff000;
+            padding: 10px 0;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .brutal-btn {
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+        }
+        .brutal-btn:hover {
+            transform: translate(6px, 6px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 400px;
+            background-color: #fff;
+            border: 4px solid #000;
+            padding: 1rem;
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased border-8 border-black min-h-screen box-border m-0">
+
+    <nav class="fixed w-full z-50 bg-white border-b-4 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 font-black text-2xl tracking-tighter uppercase">
+                    HJK<span class="text-brutalBlue">_</span>DATA
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button onclick="scrollToSection('dashboard')" class="border-2 border-transparent hover:border-black hover:bg-brutalYellow px-3 py-1 font-bold uppercase transition-colors">DATA</button>
+                    <button onclick="scrollToSection('philosophy')" class="border-2 border-transparent hover:border-black hover:bg-brutalPink hover:text-white px-3 py-1 font-bold uppercase transition-colors">PHILOSOPHY</button>
+                    <button onclick="scrollToSection('multitudes')" class="border-2 border-transparent hover:border-black hover:bg-brutalBlue hover:text-white px-3 py-1 font-bold uppercase transition-colors">MULTITUDES</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-16">
+        <div class="marquee-container text-black">
+            <div class="marquee-content">
+                AI GOVERNANCE LEADER &nbsp;&nbsp; // &nbsp;&nbsp; PH.D. IN COMPUTATIONAL MATERIALS PHYSICS &nbsp;&nbsp; // &nbsp;&nbsp; AGILE EXECUTION &nbsp;&nbsp; // &nbsp;&nbsp; AI GOVERNANCE LEADER &nbsp;&nbsp; // &nbsp;&nbsp; PH.D. IN COMPUTATIONAL MATERIALS PHYSICS &nbsp;&nbsp; // &nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <section id="home" class="py-16 md:py-24 px-4 max-w-7xl mx-auto flex flex-col items-start border-b-8 border-black bg-white">
+        <div class="border-4 border-black bg-black text-white px-4 py-2 font-mono font-bold text-lg mb-8 shadow-brutal inline-block uppercase">
+            &gt; SYSTEM.INIT() --user="김현중"
+        </div>
+        <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
+            HYUN-JUNG<br/>
+            <span class="text-brutalBlue">KIM</span>.
+        </h1>
+        <p class="mt-4 text-2xl md:text-3xl font-bold max-w-3xl leading-snug bg-brutalYellow border-2 border-black p-2 inline-block">
+            탐구자의 깊이와 리더의 애자일함을 겸비한 융합형 인재.
+        </p>
+        <p class="mt-4 text-xl font-bold max-w-2xl leading-snug">
+            현실의 벽을 넘어 구성원들의 도메인 난제 해결을 돕는 실천적 조력자. AI 기술 도입과 거버넌스 체계를 설계합니다.
+        </p>
+    </section>
+
+    <section id="dashboard" class="py-20 px-4 border-b-8 border-black bg-brutalBlue">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white border-4 border-black p-6 shadow-brutal mb-12">
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">DATA DASHBOARD</h2>
+                <p class="font-bold text-lg text-black leading-relaxed">
+                    이 섹션은 현중 님의 정량적 커리어 데이터와 주요 기술 역량을 인터랙티브하게 시각화합니다. 버튼을 클릭하여 연차별 커리어 타임라인 차트와 다방면의 스택 숙련도를 비교하는 레이더 형태의 차트를 전환하며 탐색해 보세요. 데이터 기반의 객관적인 전문성을 확인할 수 있습니다.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
+                <button onclick="updateChart('timeline')" class="brutal-btn bg-brutalYellow border-4 border-black text-black font-black text-xl px-8 py-3 uppercase shadow-brutal">
+                    ⏱️ Career Timeline
+                </button>
+                <button onclick="updateChart('skills')" class="brutal-btn bg-brutalPink border-4 border-black text-white font-black text-xl px-8 py-3 uppercase shadow-brutal">
+                    ⚡ Skill Radar
+                </button>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="dataChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section id="philosophy" class="py-20 px-4 border-b-8 border-black bg-brutalYellow">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-black text-white border-4 border-white p-6 shadow-[8px_8px_0px_0px_#0044ff] mb-12">
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">CORE PHILOSOPHY</h2>
+                <p class="font-bold text-lg leading-relaxed">
+                    정량적 지표 이면에 있는 현중 님의 핵심 철학과 비전 모듈입니다. 강력한 대비와 거친 컴포넌트 구성을 통해, 대기업 시스템 내에서 실질적인 AI 적용을 이끄는 강력한 추진력과 문제 해결 마인드셋을 강조합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-brutalBlue hover:text-white transition-colors group">
+                    <div class="text-6xl mb-6">🔬</div>
+                    <h3 class="text-3xl font-black mb-4 uppercase">융합형 인재</h3>
+                    <p class="font-bold text-lg leading-relaxed">
+                        물리학의 탄탄한 원리 위에 최신 AI 기술을 쌓아 올립니다. 기술의 본질을 꿰뚫어 보고 비즈니스와 현장에 필요한 진짜 인사이트를 발굴합니다.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-brutalPink hover:text-white transition-colors group">
+                    <div class="text-6xl mb-6">🌉</div>
+                    <h3 class="text-3xl font-black mb-4 uppercase">실천적 조력자</h3>
+                    <p class="font-bold text-lg leading-relaxed">
+                        대기업의 엄격한 보안(On-premise) 속에서도 구성원들이 AI를 활용해 도메인 난제를 직접 해결할 수 있도록 교육 체계와 다리를 놓아줍니다.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-black hover:text-white transition-colors group">
+                    <div class="text-6xl mb-6">🚀</div>
+                    <h3 class="text-3xl font-black mb-4 uppercase">미래 전략가</h3>
+                    <p class="font-bold text-lg leading-relaxed">
+                        비즈니스 성과를 도출함과 동시에, 다가올 양자 컴퓨팅과 생성형 AI의 융합을 통한 분자 역설계 패러다임 전환을 설계합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="multitudes" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="bg-white border-4 border-black p-6 shadow-brutal mb-12">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">OUTPUT STREAM (MULTITUDES)</h2>
+            <p class="font-bold text-lg text-black leading-relaxed">
+                엔지니어링 리더십의 경계를 넘어선 다양한 창작, 분석, 탐구 활동을 정리한 대시보드입니다. 하단의 필터 버튼을 조작하여 특정 관심사 영역의 데이터를 분리하여 확인할 수 있습니다.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mb-12 justify-center">
+            <button onclick="filterItems('all')" class="brutal-btn bg-black text-white border-4 border-black font-black px-6 py-2 uppercase shadow-brutal text-lg">ALL</button>
+            <button onclick="filterItems('story')" class="brutal-btn bg-brutalYellow border-4 border-black text-black font-black px-6 py-2 uppercase shadow-brutal text-lg">STORYTELLING</button>
+            <button onclick="filterItems('design')" class="brutal-btn bg-brutalPink border-4 border-black text-white font-black px-6 py-2 uppercase shadow-brutal text-lg">GEN-AI DESIGN</button>
+            <button onclick="filterItems('invest')" class="brutal-btn bg-brutalBlue border-4 border-black text-white font-black px-6 py-2 uppercase shadow-brutal text-lg">INVESTMENT</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="gridContainer">
+            <div class="multi-item bg-brutalYellow p-8 border-4 border-black shadow-brutal" data-category="story">
+                <div class="text-5xl mb-4">📖</div>
+                <h3 class="text-2xl font-black uppercase mb-2 bg-black text-white px-2 py-1 inline-block">Storytelling</h3>
+                <p class="font-bold text-lg border-t-4 border-black pt-4">아이들의 시선으로 통합반의 긍정적인 면을 조명하는 '어른들은 모르는 통합반 속 이야기' 동화책 집필 중.</p>
+            </div>
+
+            <div class="multi-item bg-brutalPink text-white p-8 border-4 border-black shadow-brutal" data-category="design">
+                <div class="text-5xl mb-4">🎨</div>
+                <h3 class="text-2xl font-black uppercase mb-2 bg-black px-2 py-1 inline-block">Gen-AI Design</h3>
+                <p class="font-bold text-lg border-t-4 border-black pt-4">Google AI Studio, Gemini 활용. '용용이 선생님' 캐릭터 로고 및 인테리어 시안 등 생성형 AI 창작 실험.</p>
+            </div>
+
+            <div class="multi-item bg-white p-8 border-4 border-black shadow-brutal" data-category="invest">
+                <div class="text-5xl mb-4">📈</div>
+                <h3 class="text-2xl font-black uppercase mb-2 bg-brutalBlue text-white px-2 py-1 inline-block">Invest & Analyze</h3>
+                <p class="font-bold text-lg border-t-4 border-black pt-4">물성 계산 연구원 출신의 분석력으로 시장 파악. KEPCO, SK하이닉스, 삼성전자 산업 트렌드 및 포트폴리오 분석.</p>
+            </div>
+
+            <div class="multi-item bg-brutalGreen p-8 border-4 border-black shadow-brutal" data-category="design">
+                <div class="text-5xl mb-4">🤖</div>
+                <h3 class="text-2xl font-black uppercase mb-2 bg-black text-white px-2 py-1 inline-block">LLM App Dev</h3>
+                <p class="font-bold text-lg border-t-4 border-black pt-4">사내 프라이빗 환경을 고려한 On-premise 기반의 업무 자동화 LLM 애플리케이션 프로토타입 설계 및 기획.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white py-12 border-t-8 border-black mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 text-brutalYellow">SYSTEM_HALT</h2>
+            <p class="font-mono text-brutalGreen bg-black border-2 border-brutalGreen inline-block px-4 py-2 mb-8 uppercase font-bold text-lg">
+                READY TO DEPLOY INNOVATION.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('dataChart').getContext('2d');
+        
+        const chartState = {
+            timeline: {
+                type: 'bar',
+                data: {
+                    labels: ['KIAS & FZJ (물리연구)', 'LGD (OLED연구)', 'LGD (AI 교육/거버넌스)'],
+                    datasets: [{
+                        label: '근무 기간 (Years)',
+                        data: [7, 2, 1.5],
+                        backgroundColor: ['#e5e5e5', '#fff000', '#ff0055'],
+                        borderColor: '#000000',
+                        borderWidth: 4,
+                        hoverBackgroundColor: '#0044ff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            grid: { color: '#000', lineWidth: 2 },
+                            ticks: { font: { family: 'Courier New', weight: 'bold', size: 14 }, color: '#000' }
+                        },
+                        x: {
+                            grid: { color: '#000', lineWidth: 2 },
+                            ticks: { font: { family: 'Helvetica', weight: '900', size: 12 }, color: '#000' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#000',
+                            titleFont: { family: 'Helvetica', size: 16, weight: 'bold' },
+                            bodyFont: { family: 'Helvetica', size: 14 },
+                            padding: 12,
+                            cornerRadius: 0,
+                            displayColors: false
+                        }
+                    }
+                }
+            },
+            skills: {
+                type: 'polarArea',
+                data: {
+                    labels: ['Physics & Calc', 'AI & ML Ops', 'LLM Dev', 'Education', 'Agile Mgmt'],
+                    datasets: [{
+                        label: 'Skill Proficiency',
+                        data: [95, 85, 80, 90, 88],
+                        backgroundColor: [
+                            '#fff000',
+                            '#0044ff',
+                            '#ff0055',
+                            '#00ff44',
+                            '#e5e5e5'
+                        ],
+                        borderColor: '#000000',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            ticks: { display: false },
+                            grid: { color: '#000', lineWidth: 2 },
+                            angleLines: { color: '#000', lineWidth: 2 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { family: 'Helvetica', weight: 'bold', size: 14 },
+                                color: '#000',
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#000',
+                            titleFont: { family: 'Helvetica', size: 16, weight: 'bold' },
+                            bodyFont: { family: 'Helvetica', size: 14 },
+                            padding: 12,
+                            cornerRadius: 0
+                        }
+                    }
+                }
+            }
+        };
+
+        let currentChart = new Chart(ctx, chartState.timeline);
+
+        function updateChart(type) {
+            currentChart.destroy();
+            currentChart = new Chart(ctx, chartState[type]);
+        }
+
+        function filterItems(category) {
+            const items = document.querySelectorAll('.multi-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
