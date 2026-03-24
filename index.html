@@ -1,363 +1,859 @@
-<!-- Chosen Palette: Neo-Brutalism (Light Gray, Neon Yellow, Vivid Blue, Neon Pink, Terminal Green, Solid Black) -->
-<!-- Application Structure Plan: A single-page dashboard designed for high-impact exploration. It is divided into 'Terminal Intro', 'Data Dashboard (Interactive Chart)', 'Core Modules (Philosophy)', and 'Output Stream (Multitudes)'. This non-linear structure prioritizes immediate data consumption and interactive discovery over a traditional static resume format. The layout uses CSS Grid and Flexbox with brutalist aesthetics to encourage active user interaction. -->
-<!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Method -> Interaction -> Justification. 1. Career/Skills Data -> Compare & Inform -> Chart.js Bar & Polar Area -> Toggle Buttons -> Visually translates abstract career timelines into hard, explorable data metrics. 2. Philosophy -> Organize -> Brutalist Flex Cards -> Hover transformations -> Forces focus on text via high contrast. 3. Extracurriculars -> Categorize -> Interactive Grid -> Filter Buttons -> Allows user to navigate diverse interests easily without SVG usage (relying entirely on Unicode emojis and Tailwind). -->
-<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIM HYUN-JUNG | AI GOVERNANCE DATA SPA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Helvetica', 'Arial', '"Noto Sans KR"', 'sans-serif'],
-                        mono: ['"Courier New"', 'Courier', 'monospace'],
-                    },
-                    colors: {
-                        brutalBg: '#e5e5e5',
-                        brutalYellow: '#fff000',
-                        brutalBlue: '#0044ff',
-                        brutalPink: '#ff0055',
-                        brutalGreen: '#00ff44',
-                    },
-                    boxShadow: {
-                        'brutal': '8px 8px 0px 0px rgba(0,0,0,1)',
-                        'brutal-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #e5e5e5;
-            background-image: radial-gradient(#000 1px, transparent 1px);
-            background-size: 20px 20px;
-            color: #000;
-        }
-        ::selection {
-            background: #fff000;
-            color: #000;
-        }
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            border-top: 4px solid #000;
-            border-bottom: 4px solid #000;
-            background-color: #fff000;
-            padding: 10px 0;
-        }
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 15s linear infinite;
-            font-weight: 900;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .brutal-btn {
-            transition: all 0.1s ease-in-out;
-            cursor: pointer;
-        }
-        .brutal-btn:hover {
-            transform: translate(6px, 6px);
-            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 40vh;
-            max-height: 400px;
-            background-color: #fff;
-            border: 4px solid #000;
-            padding: 1rem;
-            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyun-Jung Kim | AI Governance and Computational Materials Physics</title>
+  <meta
+    name="description"
+    content="Public profile for Hyun-Jung Kim, AI governance workstream lead at LG Display and Ph.D. in computational materials physics."
+  >
+  <meta property="og:title" content="Hyun-Jung Kim">
+  <meta
+    property="og:description"
+    content="AI governance, scientific computing, materials discovery, and computational materials physics."
+  >
+  <meta property="og:type" content="website">
+  <meta name="color-scheme" content="light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Work+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #f3efe6;
+      --bg-deep: #ece6da;
+      --surface: rgba(255, 252, 247, 0.76);
+      --surface-strong: #fbf9f4;
+      --line: rgba(50, 69, 60, 0.16);
+      --line-strong: rgba(37, 55, 48, 0.26);
+      --text: #21312b;
+      --muted: #5e6f68;
+      --accent: #314b42;
+      --accent-soft: #dbe4db;
+      --accent-warm: #9c7d5d;
+      --max-width: 1160px;
+      --shadow: 0 22px 60px rgba(29, 43, 37, 0.08);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Work Sans", sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(219, 228, 219, 0.92), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(156, 125, 93, 0.12), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(49, 75, 66, 0.34);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      z-index: 100;
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .page-shell {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(243, 239, 230, 0.82);
+      border-bottom: 1px solid rgba(49, 75, 66, 0.12);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.65);
+      font-family: "Newsreader", serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .nav-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.4rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.1rem;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.85rem 1.25rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: #243932;
+    }
+
+    .button-ghost {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.55);
+      color: var(--text);
+    }
+
+    .button-ghost:hover {
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(19rem, 0.9fr);
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: start;
+      padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+    }
+
+    .kicker {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display-copy {
+      font-family: "Newsreader", serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.5rem, 9vw, 6.6rem);
+      line-height: 0.95;
+    }
+
+    .lede {
+      max-width: 42rem;
+      margin: 1.6rem 0 0;
+      font-size: clamp(1.18rem, 2vw, 1.5rem);
+      color: rgba(33, 49, 43, 0.94);
+    }
+
+    .supporting {
+      max-width: 42rem;
+      margin: 1.2rem 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .button-row,
+    .link-row,
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .button-row {
+      margin-top: 2rem;
+    }
+
+    .link-row {
+      margin-top: 1.1rem;
+    }
+
+    .hero-card,
+    .section-shell {
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      animation: rise 0.7s ease both;
+    }
+
+    .hero-card {
+      padding: 1.75rem;
+    }
+
+    .hero-card h2 {
+      margin: 0.15rem 0 1rem;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      line-height: 1.1;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.7rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.54);
+    }
+
+    .stat-value {
+      display: block;
+      font-family: "Newsreader", serif;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .quiet-list {
+      margin: 1.35rem 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+    }
+
+    .quiet-list li + li {
+      margin-top: 0.45rem;
+    }
+
+    .section {
+      padding: 1.25rem 0 0;
+      scroll-margin-top: 6rem;
+    }
+
+    .section-shell {
+      padding: clamp(1.5rem, 4vw, 2.4rem);
+    }
+
+    .section-heading {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+    }
+
+    .section-heading p:last-child {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--muted);
+    }
+
+    .work-grid,
+    .scholar-grid,
+    .principles {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .work-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .scholar-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+
+    .principles {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      height: 100%;
+      padding: 1.3rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card-eyebrow {
+      margin: 0 0 0.7rem;
+      color: var(--accent-warm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li + li {
+      margin-top: 1rem;
+    }
+
+    .list strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .list span {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .list a {
+      text-decoration: underline;
+      text-decoration-color: rgba(49, 75, 66, 0.22);
+      text-underline-offset: 0.18rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 8.2rem minmax(0, 1fr);
+      gap: 1.3rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .timeline-period {
+      margin: 0;
+      color: var(--accent-warm);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .timeline-item h3 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    .timeline-item p {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .section-note {
+      margin-top: 1.25rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .contact-card {
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .contact-card h3 {
+      margin: 0 0 0.85rem;
+      font-size: 1.45rem;
+    }
+
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .work-grid,
+      .scholar-grid,
+      .principles,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-bar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 0.9rem 1.1rem;
+      }
+
+      .hero {
+        padding-top: 3.3rem;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-card,
+      .section-shell,
+      .button {
+        animation: none;
+        transition: none;
+      }
+    }
+  </style>
 </head>
-<body class="font-sans antialiased border-8 border-black min-h-screen box-border m-0">
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
 
-    <nav class="fixed w-full z-50 bg-white border-b-4 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0 font-black text-2xl tracking-tighter uppercase">
-                    HJK<span class="text-brutalBlue">_</span>DATA
-                </div>
-                <div class="hidden md:flex space-x-4">
-                    <button onclick="scrollToSection('dashboard')" class="border-2 border-transparent hover:border-black hover:bg-brutalYellow px-3 py-1 font-bold uppercase transition-colors">DATA</button>
-                    <button onclick="scrollToSection('philosophy')" class="border-2 border-transparent hover:border-black hover:bg-brutalPink hover:text-white px-3 py-1 font-bold uppercase transition-colors">PHILOSOPHY</button>
-                    <button onclick="scrollToSection('multitudes')" class="border-2 border-transparent hover:border-black hover:bg-brutalBlue hover:text-white px-3 py-1 font-bold uppercase transition-colors">MULTITUDES</button>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <header class="site-header">
+    <div class="page-shell nav-bar">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand-mark">HK</span>
+        <span>Hyun-Jung Kim</span>
+      </a>
 
-    <div class="pt-16">
-        <div class="marquee-container text-black">
-            <div class="marquee-content">
-                AI GOVERNANCE LEADER &nbsp;&nbsp; // &nbsp;&nbsp; PH.D. IN COMPUTATIONAL MATERIALS PHYSICS &nbsp;&nbsp; // &nbsp;&nbsp; AGILE EXECUTION &nbsp;&nbsp; // &nbsp;&nbsp; AI GOVERNANCE LEADER &nbsp;&nbsp; // &nbsp;&nbsp; PH.D. IN COMPUTATIONAL MATERIALS PHYSICS &nbsp;&nbsp; // &nbsp;&nbsp;
-            </div>
-        </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#trajectory">Trajectory</a>
+        <a href="#scholarship">Scholarship</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">Download CV</a>
     </div>
+  </header>
 
-    <section id="home" class="py-16 md:py-24 px-4 max-w-7xl mx-auto flex flex-col items-start border-b-8 border-black bg-white">
-        <div class="border-4 border-black bg-black text-white px-4 py-2 font-mono font-bold text-lg mb-8 shadow-brutal inline-block uppercase">
-            &gt; SYSTEM.INIT() --user="김현중"
-        </div>
-        <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
-            HYUN-JUNG<br/>
-            <span class="text-brutalBlue">KIM</span>.
-        </h1>
-        <p class="mt-4 text-2xl md:text-3xl font-bold max-w-3xl leading-snug bg-brutalYellow border-2 border-black p-2 inline-block">
-            탐구자의 깊이와 리더의 애자일함을 겸비한 융합형 인재.
+  <main id="content">
+    <section class="page-shell hero" id="top">
+      <div>
+        <p class="kicker">AI Governance • Scientific Computing • Materials Discovery</p>
+        <h1>Hyun-Jung Kim</h1>
+        <p class="lede">
+          I work at the boundary of computational materials physics and enterprise AI adoption, translating rigorous research methods into practical systems, education, and governance.
         </p>
-        <p class="mt-4 text-xl font-bold max-w-2xl leading-snug">
-            현실의 벽을 넘어 구성원들의 도메인 난제 해결을 돕는 실천적 조력자. AI 기술 도입과 거버넌스 체계를 설계합니다.
+        <p class="supporting">
+          At LG Display, I lead workstreams across AI project review, technical scouting, committee operations, and internal AI capability building. My research background spans first-principles simulation, condensed-matter theory, open-source scientific tooling, and long-horizon work on inverse design for molecular and materials discovery.
         </p>
-    </section>
 
-    <section id="dashboard" class="py-20 px-4 border-b-8 border-black bg-brutalBlue">
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white border-4 border-black p-6 shadow-brutal mb-12">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">DATA DASHBOARD</h2>
-                <p class="font-bold text-lg text-black leading-relaxed">
-                    이 섹션은 현중 님의 정량적 커리어 데이터와 주요 기술 역량을 인터랙티브하게 시각화합니다. 버튼을 클릭하여 연차별 커리어 타임라인 차트와 다방면의 스택 숙련도를 비교하는 레이더 형태의 차트를 전환하며 탐색해 보세요. 데이터 기반의 객관적인 전문성을 확인할 수 있습니다.
-                </p>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
-                <button onclick="updateChart('timeline')" class="brutal-btn bg-brutalYellow border-4 border-black text-black font-black text-xl px-8 py-3 uppercase shadow-brutal">
-                    ⏱️ Career Timeline
-                </button>
-                <button onclick="updateChart('skills')" class="brutal-btn bg-brutalPink border-4 border-black text-white font-black text-xl px-8 py-3 uppercase shadow-brutal">
-                    ⚡ Skill Radar
-                </button>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="dataChart"></canvas>
-            </div>
+        <div class="button-row">
+          <a class="button" href="Hyun-Jung_Kim_CV.pdf">Download full CV</a>
+          <a class="button button-ghost" href="#work">View selected work</a>
         </div>
-    </section>
 
-    <section id="philosophy" class="py-20 px-4 border-b-8 border-black bg-brutalYellow">
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-black text-white border-4 border-white p-6 shadow-[8px_8px_0px_0px_#0044ff] mb-12">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">CORE PHILOSOPHY</h2>
-                <p class="font-bold text-lg leading-relaxed">
-                    정량적 지표 이면에 있는 현중 님의 핵심 철학과 비전 모듈입니다. 강력한 대비와 거친 컴포넌트 구성을 통해, 대기업 시스템 내에서 실질적인 AI 적용을 이끄는 강력한 추진력과 문제 해결 마인드셋을 강조합니다.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-brutalBlue hover:text-white transition-colors group">
-                    <div class="text-6xl mb-6">🔬</div>
-                    <h3 class="text-3xl font-black mb-4 uppercase">융합형 인재</h3>
-                    <p class="font-bold text-lg leading-relaxed">
-                        물리학의 탄탄한 원리 위에 최신 AI 기술을 쌓아 올립니다. 기술의 본질을 꿰뚫어 보고 비즈니스와 현장에 필요한 진짜 인사이트를 발굴합니다.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-brutalPink hover:text-white transition-colors group">
-                    <div class="text-6xl mb-6">🌉</div>
-                    <h3 class="text-3xl font-black mb-4 uppercase">실천적 조력자</h3>
-                    <p class="font-bold text-lg leading-relaxed">
-                        대기업의 엄격한 보안(On-premise) 속에서도 구성원들이 AI를 활용해 도메인 난제를 직접 해결할 수 있도록 교육 체계와 다리를 놓아줍니다.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 border-4 border-black shadow-brutal hover:bg-black hover:text-white transition-colors group">
-                    <div class="text-6xl mb-6">🚀</div>
-                    <h3 class="text-3xl font-black mb-4 uppercase">미래 전략가</h3>
-                    <p class="font-bold text-lg leading-relaxed">
-                        비즈니스 성과를 도출함과 동시에, 다가올 양자 컴퓨팅과 생성형 AI의 융합을 통한 분자 역설계 패러다임 전환을 설계합니다.
-                    </p>
-                </div>
-            </div>
+        <div class="link-row" aria-label="External links">
+          <a class="tag" href="https://github.com/Infant83" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="tag" href="https://www.linkedin.com/in/hyun-jung-kim-8126a7236/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="tag" href="https://orcid.org/0000-0002-5602-1404" target="_blank" rel="noreferrer">ORCID</a>
+          <a class="tag" href="mailto:hyun-jung.kim@lgdisplay.com">Email</a>
         </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Profile summary">
+        <p class="kicker">Current Frame</p>
+        <h2>Scientific rigor, institutional calm, and practical implementation.</h2>
+        <p>
+          My work centers on building trustworthy paths from research-grade insight to operational AI use inside complex organizations. That includes governance, education, and the disciplined evaluation of what is worth adopting next.
+        </p>
+
+        <div class="stat-grid" aria-label="Selected metrics">
+          <div class="stat">
+            <span class="stat-value">30+</span>
+            <span class="stat-label">peer-reviewed papers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">10+</span>
+            <span class="stat-label">years across academia and industry</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">3</span>
+            <span class="stat-label">open-source scientific toolchains</span>
+          </div>
+        </div>
+
+        <ul class="quiet-list" aria-label="Selected distinctions">
+          <li>Humboldt Research Fellowship for Postdoctoral Researchers</li>
+          <li>KIAS Academic Research Award</li>
+          <li>Outstanding Ph.D. Dissertation Award, Hanyang University</li>
+        </ul>
+      </aside>
     </section>
 
-    <section id="multitudes" class="py-20 px-4 max-w-7xl mx-auto">
-        <div class="bg-white border-4 border-black p-6 shadow-brutal mb-12">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">OUTPUT STREAM (MULTITUDES)</h2>
-            <p class="font-bold text-lg text-black leading-relaxed">
-                엔지니어링 리더십의 경계를 넘어선 다양한 창작, 분석, 탐구 활동을 정리한 대시보드입니다. 하단의 필터 버튼을 조작하여 특정 관심사 영역의 데이터를 분리하여 확인할 수 있습니다.
+    <section class="page-shell section" id="work">
+      <div class="section-shell">
+        <div class="section-heading">
+          <p class="kicker">Current Work</p>
+          <h2>Bringing research discipline into enterprise AI adoption.</h2>
+          <p>
+            The present focus is not a generic AI showcase. It is careful institutional work: building review structures, teaching usable skills, and identifying where advanced methods can create real technical advantage.
+          </p>
+        </div>
+
+        <div class="work-grid">
+          <article class="card">
+            <p class="card-eyebrow">Governance</p>
+            <h3>AI project review and portfolio management</h3>
+            <p>
+              I support structured evaluation of AI initiatives, helping teams move from experimentation toward scoped, reviewable, and strategically aligned execution.
             </p>
+          </article>
+
+          <article class="card">
+            <p class="card-eyebrow">Education</p>
+            <h3>Internal teaching for AI, automation, and LLM applications</h3>
+            <p>
+              I design and deliver internal training on AI and ML fundamentals, workflow automation, and LLM application development so adoption can happen with technical clarity rather than hype.
+            </p>
+          </article>
+
+          <article class="card">
+            <p class="card-eyebrow">Discovery</p>
+            <h3>Materials discovery with a long-horizon view</h3>
+            <p>
+              My research agenda continues to explore AI-enabled inverse design and quantum-ready optimization frameworks for OLED-relevant molecular and materials problems.
+            </p>
+          </article>
         </div>
-
-        <div class="flex flex-wrap gap-4 mb-12 justify-center">
-            <button onclick="filterItems('all')" class="brutal-btn bg-black text-white border-4 border-black font-black px-6 py-2 uppercase shadow-brutal text-lg">ALL</button>
-            <button onclick="filterItems('story')" class="brutal-btn bg-brutalYellow border-4 border-black text-black font-black px-6 py-2 uppercase shadow-brutal text-lg">STORYTELLING</button>
-            <button onclick="filterItems('design')" class="brutal-btn bg-brutalPink border-4 border-black text-white font-black px-6 py-2 uppercase shadow-brutal text-lg">GEN-AI DESIGN</button>
-            <button onclick="filterItems('invest')" class="brutal-btn bg-brutalBlue border-4 border-black text-white font-black px-6 py-2 uppercase shadow-brutal text-lg">INVESTMENT</button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="gridContainer">
-            <div class="multi-item bg-brutalYellow p-8 border-4 border-black shadow-brutal" data-category="story">
-                <div class="text-5xl mb-4">📖</div>
-                <h3 class="text-2xl font-black uppercase mb-2 bg-black text-white px-2 py-1 inline-block">Storytelling</h3>
-                <p class="font-bold text-lg border-t-4 border-black pt-4">아이들의 시선으로 통합반의 긍정적인 면을 조명하는 '어른들은 모르는 통합반 속 이야기' 동화책 집필 중.</p>
-            </div>
-
-            <div class="multi-item bg-brutalPink text-white p-8 border-4 border-black shadow-brutal" data-category="design">
-                <div class="text-5xl mb-4">🎨</div>
-                <h3 class="text-2xl font-black uppercase mb-2 bg-black px-2 py-1 inline-block">Gen-AI Design</h3>
-                <p class="font-bold text-lg border-t-4 border-black pt-4">Google AI Studio, Gemini 활용. '용용이 선생님' 캐릭터 로고 및 인테리어 시안 등 생성형 AI 창작 실험.</p>
-            </div>
-
-            <div class="multi-item bg-white p-8 border-4 border-black shadow-brutal" data-category="invest">
-                <div class="text-5xl mb-4">📈</div>
-                <h3 class="text-2xl font-black uppercase mb-2 bg-brutalBlue text-white px-2 py-1 inline-block">Invest & Analyze</h3>
-                <p class="font-bold text-lg border-t-4 border-black pt-4">물성 계산 연구원 출신의 분석력으로 시장 파악. KEPCO, SK하이닉스, 삼성전자 산업 트렌드 및 포트폴리오 분석.</p>
-            </div>
-
-            <div class="multi-item bg-brutalGreen p-8 border-4 border-black shadow-brutal" data-category="design">
-                <div class="text-5xl mb-4">🤖</div>
-                <h3 class="text-2xl font-black uppercase mb-2 bg-black text-white px-2 py-1 inline-block">LLM App Dev</h3>
-                <p class="font-bold text-lg border-t-4 border-black pt-4">사내 프라이빗 환경을 고려한 On-premise 기반의 업무 자동화 LLM 애플리케이션 프로토타입 설계 및 기획.</p>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <footer class="bg-black text-white py-12 border-t-8 border-black mt-20">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 text-brutalYellow">SYSTEM_HALT</h2>
-            <p class="font-mono text-brutalGreen bg-black border-2 border-brutalGreen inline-block px-4 py-2 mb-8 uppercase font-bold text-lg">
-                READY TO DEPLOY INNOVATION.
-            </p>
+    <section class="page-shell section" id="trajectory">
+      <div class="section-shell">
+        <div class="section-heading">
+          <p class="kicker">Trajectory</p>
+          <h2>A career shaped by theory, simulation, and translation.</h2>
+          <p>
+            The throughline is consistent: rigorous modeling, transferable workflows, and a bias toward building systems other people can actually use.
+          </p>
         </div>
-    </footer>
 
-    <script>
-        const ctx = document.getElementById('dataChart').getContext('2d');
-        
-        const chartState = {
-            timeline: {
-                type: 'bar',
-                data: {
-                    labels: ['KIAS & FZJ (물리연구)', 'LGD (OLED연구)', 'LGD (AI 교육/거버넌스)'],
-                    datasets: [{
-                        label: '근무 기간 (Years)',
-                        data: [7, 2, 1.5],
-                        backgroundColor: ['#e5e5e5', '#fff000', '#ff0055'],
-                        borderColor: '#000000',
-                        borderWidth: 4,
-                        hoverBackgroundColor: '#0044ff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            grid: { color: '#000', lineWidth: 2 },
-                            ticks: { font: { family: 'Courier New', weight: 'bold', size: 14 }, color: '#000' }
-                        },
-                        x: {
-                            grid: { color: '#000', lineWidth: 2 },
-                            ticks: { font: { family: 'Helvetica', weight: '900', size: 12 }, color: '#000' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#000',
-                            titleFont: { family: 'Helvetica', size: 16, weight: 'bold' },
-                            bodyFont: { family: 'Helvetica', size: 14 },
-                            padding: 12,
-                            cornerRadius: 0,
-                            displayColors: false
-                        }
-                    }
-                }
-            },
-            skills: {
-                type: 'polarArea',
-                data: {
-                    labels: ['Physics & Calc', 'AI & ML Ops', 'LLM Dev', 'Education', 'Agile Mgmt'],
-                    datasets: [{
-                        label: 'Skill Proficiency',
-                        data: [95, 85, 80, 90, 88],
-                        backgroundColor: [
-                            '#fff000',
-                            '#0044ff',
-                            '#ff0055',
-                            '#00ff44',
-                            '#e5e5e5'
-                        ],
-                        borderColor: '#000000',
-                        borderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            ticks: { display: false },
-                            grid: { color: '#000', lineWidth: 2 },
-                            angleLines: { color: '#000', lineWidth: 2 }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: {
-                                font: { family: 'Helvetica', weight: 'bold', size: 14 },
-                                color: '#000',
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: '#000',
-                            titleFont: { family: 'Helvetica', size: 16, weight: 'bold' },
-                            bodyFont: { family: 'Helvetica', size: 14 },
-                            padding: 12,
-                            cornerRadius: 0
-                        }
-                    }
-                }
-            }
-        };
+        <div class="timeline">
+          <article class="timeline-item">
+            <p class="timeline-period">2025–Present</p>
+            <div>
+              <h3>AI Governance Team, LG Display</h3>
+              <p>
+                Workstream lead covering AI project review, technical scouting, committee operations, and early-stage exploration of quantum-computing use cases and external collaboration paths.
+              </p>
+            </div>
+          </article>
 
-        let currentChart = new Chart(ctx, chartState.timeline);
+          <article class="timeline-item">
+            <p class="timeline-period">2022–2024</p>
+            <div>
+              <h3>OLED Materials Research, LG Display</h3>
+              <p>
+                Applied quantum-chemical and DFT-driven analysis to molecular design problems, linking computation, mechanism analysis, and data-driven screening for industrial R&amp;D.
+              </p>
+            </div>
+          </article>
 
-        function updateChart(type) {
-            currentChart.destroy();
-            currentChart = new Chart(ctx, chartState[type]);
-        }
+          <article class="timeline-item">
+            <p class="timeline-period">2020–2022</p>
+            <div>
+              <h3>Forschungszentrum Jülich</h3>
+              <p>
+                Visiting scientist and postdoctoral researcher at PGI-1 and IAS-1, supported by the Humboldt Research Fellowship, working on electronic structure, topology, and transferable modeling.
+              </p>
+            </div>
+          </article>
 
-        function filterItems(category) {
-            const items = document.querySelectorAll('.multi-item');
-            items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
+          <article class="timeline-item">
+            <p class="timeline-period">2015–2020</p>
+            <div>
+              <h3>Korea Institute for Advanced Study</h3>
+              <p>
+                Postdoctoral researcher and research fellow in computational sciences and the Quantum Universe Center, developing theory-driven workflows for low-dimensional and topological materials.
+              </p>
+            </div>
+          </article>
 
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+          <article class="timeline-item">
+            <p class="timeline-period">2009–2015</p>
+            <div>
+              <h3>Hanyang University</h3>
+              <p>
+                M.S. and Ph.D. in theoretical condensed matter physics, building the academic foundation in electronic structure, low-dimensional systems, and surface science.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-shell section" id="scholarship">
+      <div class="section-shell">
+        <div class="section-heading">
+          <p class="kicker">Scholarship</p>
+          <h2>Selected publications, tools, and research themes.</h2>
+          <p>
+            This public page is intentionally selective. The full publication list, talks, and detailed academic record remain in the downloadable CV.
+          </p>
+        </div>
+
+        <div class="scholar-grid">
+          <article class="card">
+            <p class="card-eyebrow">Selected publications</p>
+            <ul class="list">
+              <li>
+                <strong><a href="https://sid.onlinelibrary.wiley.com/doi/abs/10.1002/sdtp.17753" target="_blank" rel="noreferrer">Machine Learning Strategy Towards Inverse Design of Blue TADF Emitter</a></strong>
+                <span>SID Symposium Digest of Technical Papers, 2024.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1038/s41524-022-00927-z" target="_blank" rel="noreferrer">Simultaneous enhancement in electrical conductivity and Seebeck coefficient by single- to double-valley transition in a Dirac-like band</a></strong>
+                <span><em>npj Computational Materials</em>, 2022.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevLett.128.046401" target="_blank" rel="noreferrer">Circular Dichroism of Emergent Chiral Stacking Orders in Quasi-One-Dimensional Charge Density Waves</a></strong>
+                <span><em>Physical Review Letters</em>, 2022.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <p class="card-eyebrow">Open-source research tools</p>
+            <ul class="list">
+              <li>
+                <strong><a href="https://github.com/Infant83/TBFIT" target="_blank" rel="noreferrer">TBFIT</a></strong>
+                <span>Slater-Koster tight-binding parameter fitting toolkit for transferable model development.</span>
+              </li>
+              <li>
+                <strong><a href="https://github.com/Infant83/VASPBERRY" target="_blank" rel="noreferrer">VASPBERRY</a></strong>
+                <span>Berry-curvature and Chern-number post-processing workflow for VASP <code>WAVECAR</code> data.</span>
+              </li>
+              <li>
+                <strong><a href="https://github.com/Infant83/VASPBAUM" target="_blank" rel="noreferrer">VASPBAUM</a></strong>
+                <span>Band-unfolding pipeline for VASP-based electronic-structure analysis.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <p class="card-eyebrow">Research themes</p>
+            <p>
+              Computational materials science, first-principles simulation, tight-binding workflows, inverse design, AI and ML for materials discovery, quantum optimization, and scientific software that remains interpretable and reusable.
+            </p>
+            <div class="tag-row" style="margin-top: 1rem;">
+              <span class="tag">DFT and quantum chemistry</span>
+              <span class="tag">AI/ML workflows</span>
+              <span class="tag">Inverse design</span>
+              <span class="tag">Topological materials</span>
+              <span class="tag">Open-source tooling</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="section-note">
+          Selected venues across the record include <em>Physical Review Letters</em>, <em>Physical Review B</em>, <em>Physical Review Materials</em>, ACS journals, <em>Scientific Reports</em>, and <em>npj Computational Materials</em>.
+        </p>
+      </div>
+    </section>
+
+    <section class="page-shell section" id="contact">
+      <div class="section-shell">
+        <div class="section-heading">
+          <p class="kicker">Contact</p>
+          <h2>Available for conversation where science, systems, and AI meet.</h2>
+          <p>
+            This site is designed as a calm public introduction. For the full record, use the CV. For direct contact, the links below are the best entry points.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card">
+            <h3>Reach out</h3>
+            <div class="link-row">
+              <a class="button" href="mailto:hyun-jung.kim@lgdisplay.com">Email</a>
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">Download CV</a>
+            </div>
+            <div class="link-row" style="margin-top: 0.9rem;">
+              <a class="tag" href="https://github.com/Infant83" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="tag" href="https://www.linkedin.com/in/hyun-jung-kim-8126a7236/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="tag" href="https://orcid.org/0000-0002-5602-1404" target="_blank" rel="noreferrer">ORCID</a>
+            </div>
+          </article>
+
+          <article class="contact-card">
+            <h3>Working principle</h3>
+            <p>
+              Adopt new tools carefully. Keep the reasoning visible. Teach people well enough that the system keeps working after the first demo.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-shell footer">
+    <p>Based on the current CV and rebuilt for GitHub Pages as a lighter public-facing profile.</p>
+  </footer>
 </body>
 </html>
