@@ -160,9 +160,17 @@
       transition: transform 0.2s ease;
     }
 
-    .nav-links a:hover::after,
-    .nav-links a:focus-visible::after {
-      transform: scaleX(1);
+      .nav-links a:hover::after,
+      .nav-links a:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+    .nav-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .button {
@@ -588,7 +596,10 @@
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">Download CV</a>
+      <div class="nav-actions" aria-label="CV downloads">
+        <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">CV</a>
+        <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf">CV (KR)</a>
+      </div>
     </div>
   </header>
 
@@ -606,6 +617,7 @@
 
         <div class="button-row">
           <a class="button" href="Hyun-Jung_Kim_CV.pdf">Download full CV</a>
+          <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf">Korean CV</a>
           <a class="button button-ghost" href="#work">View selected work</a>
         </div>
 
@@ -833,6 +845,7 @@
             <div class="link-row">
               <a class="button" href="mailto:hyun-jung.kim@lgdisplay.com">Email</a>
               <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">Download CV</a>
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf">Korean CV</a>
             </div>
             <div class="link-row" style="margin-top: 0.9rem;">
               <a class="tag" href="https://github.com/Infant83" target="_blank" rel="noreferrer">GitHub</a>

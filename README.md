@@ -21,7 +21,9 @@ The current version is designed as a calm, scholaric one-page profile with:
 - `index.html`
   The GitHub Pages homepage.
 - `Hyun-Jung_Kim_CV.pdf`
-  The downloadable CV linked from the site.
+  The downloadable English CV linked from the site.
+- `Hyun-Jung_Kim_CV_Korean.pdf`
+  The downloadable Korean CV linked from the site.
 
 ## Content Direction
 
@@ -41,6 +43,8 @@ The source CV is maintained in the parent project folder:
 
 - `../Hyun-Jung_Kim_CV.tex`
 - `../Hyun-Jung_Kim_CV.pdf`
+- `../Hyun-Jung_Kim_CV_Korean.tex`
+- `../Hyun-Jung_Kim_CV_Korean.pdf`
 
 When the CV changes, the usual workflow is:
 
@@ -48,6 +52,7 @@ When the CV changes, the usual workflow is:
 2. Run `python ..\build_cv.py` from the parent project or `python build_cv.py` from `InfantResume/`.
 3. The script backs up the `.tex` file when the current source differs from the latest backup.
 4. The script rebuilds the PDF and syncs `Hyun-Jung_Kim_CV.pdf` into this repository.
+5. For the Korean CV, run `python ../build_cv_korean.py`; it syncs `Hyun-Jung_Kim_CV_Korean.pdf`.
 5. Review `index.html` only if the public-facing narrative also needs to change.
 6. Commit and push this repository to update GitHub Pages.
 
