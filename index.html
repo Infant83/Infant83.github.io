@@ -615,6 +615,7 @@
     }
 
     .contact-card {
+      min-width: 0;
       padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
@@ -629,6 +630,25 @@
     .contact-card p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .contact-links {
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0.65rem;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 0.1rem;
+    }
+
+    .contact-links a {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .label-short {
+      display: none;
     }
 
     .footer {
@@ -685,6 +705,28 @@
 
       .stat-grid {
         grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        padding: 1rem;
+      }
+
+      .contact-links {
+        gap: 0.22rem;
+      }
+
+      .contact-links .button,
+      .contact-links .tag {
+        padding: 0.34rem 0.38rem;
+        font-size: 0.72rem;
+      }
+
+      .contact-links .label-full {
+        display: none;
+      }
+
+      .contact-links .label-short {
+        display: inline;
       }
     }
 
@@ -798,18 +840,18 @@
       <div class="section-shell">
         <div class="section-heading">
           <p class="kicker">Current Work</p>
-          <h2>AI project review, internal GitLab operation, and education support</h2>
+          <h2>AI project review, emerging technology scouting, GitLab operation, and internal AI lectures</h2>
           <p>
-            Current responsibilities cover AI initiative review, internal GitLab platform management and operation, GitLab-based MLOps enablement, and training support for AI and AX teams.
+            Current responsibilities cover AI initiative review, emerging technology scouting including quantum-computing use cases, internal GitLab platform management and operation, GitLab-based MLOps enablement, and internal AI lectures for AI and AX teams.
           </p>
         </div>
 
         <div class="work-grid">
           <article class="card">
             <p class="card-eyebrow">Governance</p>
-            <h3>AI project review and portfolio management</h3>
+            <h3>AI project review and emerging technology review</h3>
             <p>
-              I prepare and review AI initiative materials, including project scope, expected deliverables, review records, risks, and follow-up items.
+              I prepare and review AI initiative materials, including project scope, expected deliverables, review records, risks, follow-up items, and early feasibility checks for new technologies such as quantum computing.
             </p>
           </article>
 
@@ -864,10 +906,10 @@
             </article>
 
             <article class="card asset-card">
-              <p class="card-eyebrow">Public Review</p>
+              <p class="card-eyebrow">AI Technology Review</p>
               <h3>AI Tech Review Letters</h3>
               <p>
-                A public review hub that turns AI technology sources, frontier model updates, agent systems, and materials AI into readable technical notes.
+                I use AI-assisted writing workflows to turn source material on AI technologies, frontier models, agent systems, and materials AI into readable technical reviews.
               </p>
               <div class="tag-row card-links">
                 <a class="tag" href="https://infant83.github.io/AI_Tech_Review/" target="_blank" rel="noreferrer">Review Hub</a>
@@ -1013,9 +1055,9 @@
 
         <article class="card future-card">
           <p class="card-eyebrow">Future Work</p>
-          <h3>Quantum demand survey (KEIT): materials property calculation and inverse design framework</h3>
+          <h3>Quantum-computing approaches for materials calculation and inverse design</h3>
           <p>
-            Planning work on how quantum-computing methods could be connected to materials property calculation, candidate search, and inverse-design workflows. The current focus is problem framing, feasibility review, and hybrid quantum-classical workflow design rather than completed quantum-computing implementation.
+            Planning work on how quantum-computing methods could be connected to materials property calculation, candidate search, and inverse-design workflows. The current focus is problem framing, feasibility review, and hybrid quantum-classical workflow design rather than completed implementation.
           </p>
           <div class="tag-row card-links">
             <span class="tag">Quantum computing</span>
@@ -1033,19 +1075,20 @@
           <p class="kicker">Contact</p>
           <h2>Contact and profile links</h2>
           <p>
-            The CV and external profiles linked below contain the fuller academic and project record, including AI project review, internal GitLab platform operation, MLOps enablement, materials modeling, and quantum-computing feasibility review.
+            The CV and external profiles linked below contain the fuller academic and project record. I can also discuss internal AI adoption, AI-agent construction and use, GitLab-based workflows, materials modeling, and quantum-computing feasibility review.
           </p>
         </div>
 
         <div class="contact-grid">
           <article class="contact-card">
             <h3>Reach out</h3>
-            <div class="link-row">
+            <div class="link-row contact-links">
               <a class="button" href="mailto:hyun-jung.kim@lgdisplay.com">Email</a>
-              <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">Download CV</a>
-              <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf">Korean CV</a>
-            </div>
-            <div class="link-row" style="margin-top: 0.9rem;">
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">CV</a>
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf" aria-label="Korean CV">
+                <span class="label-full">CV (KR)</span>
+                <span class="label-short" aria-hidden="true">KR</span>
+              </a>
               <a class="tag" href="https://github.com/Infant83" target="_blank" rel="noreferrer">GitHub</a>
               <a class="tag" href="https://www.linkedin.com/in/hyun-jung-kim-8126a7236/" target="_blank" rel="noreferrer">LinkedIn</a>
               <a class="tag" href="https://orcid.org/0000-0002-5602-1404" target="_blank" rel="noreferrer">ORCID</a>

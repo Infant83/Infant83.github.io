@@ -616,6 +616,7 @@
     }
 
     .contact-card {
+      min-width: 0;
       padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
@@ -630,6 +631,25 @@
     .contact-card p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .contact-links {
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0.65rem;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 0.1rem;
+    }
+
+    .contact-links a {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .label-short {
+      display: none;
     }
 
     .footer {
@@ -686,6 +706,28 @@
 
       .stat-grid {
         grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        padding: 1rem;
+      }
+
+      .contact-links {
+        gap: 0.22rem;
+      }
+
+      .contact-links .button,
+      .contact-links .tag {
+        padding: 0.34rem 0.38rem;
+        font-size: 0.72rem;
+      }
+
+      .contact-links .label-full {
+        display: none;
+      }
+
+      .contact-links .label-short {
+        display: inline;
       }
     }
 
@@ -799,18 +841,18 @@
       <div class="section-shell">
         <div class="section-heading">
           <p class="kicker">현재 업무</p>
-          <h2>AI 과제 검토, 사내 GitLab 운영, 내부 교육 지원</h2>
+          <h2>AI 과제 검토, 신기술 도입 검토, 사내 GitLab 운영, 사내 AI 교육 강의</h2>
           <p>
-            현재 업무는 AI 과제 검토, 사내 GitLab 플랫폼 관리·운영, GitLab 기반 MLOps 지원, AI·AX 팀 대상 교육 지원을 포함합니다.
+            현재 업무는 AI 과제 검토, 양자컴퓨팅 활용 가능성을 포함한 신기술 도입 검토, 사내 GitLab 플랫폼 관리·운영, GitLab 기반 MLOps 지원, AI·AX 팀 대상 사내 AI 교육 강의를 포함합니다.
           </p>
         </div>
 
         <div class="work-grid">
           <article class="card">
             <p class="card-eyebrow">거버넌스</p>
-            <h3>AI 과제 검토와 포트폴리오 관리</h3>
+            <h3>AI 과제 검토와 신기술 도입 검토</h3>
             <p>
-              AI 과제의 범위, 예상 산출물, 검토 기록, 리스크, 후속 항목을 정리하고 검토합니다.
+              AI 과제의 범위, 예상 산출물, 검토 기록, 리스크, 후속 항목을 정리하고, 양자컴퓨팅 등 새 기술의 활용 가능성을 초기 단계에서 검토합니다.
             </p>
           </article>
 
@@ -865,10 +907,10 @@
             </article>
 
             <article class="card asset-card">
-              <p class="card-eyebrow">공개 리뷰</p>
+              <p class="card-eyebrow">AI 신기술 리뷰</p>
               <h3>AI Tech Review Letters</h3>
               <p>
-                AI 기술 원문, 프런티어 모델, 에이전트 시스템, 재료 AI 주제를 읽기 쉬운 기술 노트로 정리하는 공개 리뷰 허브입니다.
+                AI 기술 원문, 프런티어 모델, 에이전트 시스템, 재료 AI 등의 주제를 AI로 글쓰기 도움을 받아 읽기 쉬운 기술 리뷰로 정리하여 공유하고 있습니다.
               </p>
               <div class="tag-row card-links">
                 <a class="tag" href="https://infant83.github.io/AI_Tech_Review/" target="_blank" rel="noreferrer">Review Hub</a>
@@ -1014,9 +1056,9 @@
 
         <article class="card future-card">
           <p class="card-eyebrow">Future Work</p>
-          <h3>양자 수요조사 KEIT: 양자컴퓨터 활용 재료물성 계산 및 재료역설계 프레임워크</h3>
+          <h3>양자컴퓨팅 기반 재료물성 계산과 재료역설계</h3>
           <p>
-            양자컴퓨팅 기술을 재료 물성 계산, 후보 탐색, 역설계 문제정의와 어떻게 연결할 수 있을지 정리 중인 기획 주제입니다. 현재 초점은 완료된 구현 성과가 아니라 문제 구조화, 가능성 검토, hybrid quantum-classical 워크플로 설계에 있습니다.
+            양자컴퓨팅 기술을 재료 물성 계산, 후보 탐색, 역설계 문제정의와 어떻게 연결할 수 있을지 정리 중인 연구 방향입니다. 현재 초점은 완료된 구현 성과가 아니라 문제 구조화, 가능성 검토, hybrid quantum-classical 워크플로 설계에 있습니다.
           </p>
           <div class="tag-row card-links">
             <span class="tag">양자컴퓨팅</span>
@@ -1034,19 +1076,23 @@
           <p class="kicker">연락</p>
           <h2>연락처와 외부 프로필</h2>
           <p>
-            전체 학술 이력과 프로젝트 기록은 CV 및 외부 프로필 링크에서 확인할 수 있습니다. 관련 주제는 AI 과제 검토, 사내 GitLab 플랫폼 운영, MLOps 지원, 재료 모델링, 양자컴퓨팅 활용 가능성 검토입니다.
+            전체 학술 이력과 프로젝트 기록은 CV 및 외부 프로필 링크에서 확인할 수 있습니다. AI 활용, AI 에이전트 구축과 활용, GitLab 기반 업무 흐름, 재료 모델링, 양자컴퓨팅 활용 가능성 검토와 관련한 강연 및 논의도 가능합니다.
           </p>
         </div>
 
         <div class="contact-grid">
           <article class="contact-card">
             <h3>연락하기</h3>
-            <div class="link-row">
+            <div class="link-row contact-links">
               <a class="button" href="mailto:hyun-jung.kim@lgdisplay.com">메일</a>
-              <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf">국문 CV</a>
-              <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">English CV</a>
-            </div>
-            <div class="link-row" style="margin-top: 0.9rem;">
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV_Korean.pdf" aria-label="국문 CV">
+                <span class="label-full">CV(KR)</span>
+                <span class="label-short" aria-hidden="true">KR</span>
+              </a>
+              <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf" aria-label="English CV">
+                <span class="label-full">CV(EN)</span>
+                <span class="label-short" aria-hidden="true">EN</span>
+              </a>
               <a class="tag" href="https://github.com/Infant83" target="_blank" rel="noreferrer">GitHub</a>
               <a class="tag" href="https://www.linkedin.com/in/hyun-jung-kim-8126a7236/" target="_blank" rel="noreferrer">LinkedIn</a>
               <a class="tag" href="https://orcid.org/0000-0002-5602-1404" target="_blank" rel="noreferrer">ORCID</a>
