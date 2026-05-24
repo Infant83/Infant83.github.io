@@ -790,8 +790,6 @@
         </p>
 
         <div class="button-row">
-          <a class="button" href="Hyun-Jung_Kim_CV_Korean.pdf">국문 CV 보기</a>
-          <a class="button button-ghost" href="Hyun-Jung_Kim_CV.pdf">English CV</a>
           <a class="button button-ghost" href="#work">현재 업무 보기</a>
           <a class="button button-ghost" href="https://infant83.github.io/AI_Tech_Review/" target="_blank" rel="noreferrer">AI Tech Review Letters</a>
         </div>
@@ -823,8 +821,8 @@
             <span class="stat-label">학계·산업계 경력</span>
           </div>
           <div class="stat">
-            <span class="stat-value">3</span>
-            <span class="stat-label">오픈소스 과학 도구</span>
+            <span class="stat-value">50+</span>
+            <span class="stat-label">공개 GitHub 저장소</span>
           </div>
         </div>
 
@@ -1110,7 +1108,7 @@
 
   <script>
     (function () {
-      const endpoint = "https://ai-tech-review-public-metrics.infant83.workers.dev";
+      const endpoint = "https://infant83-public-metrics.infant83.workers.dev";
       const widget = document.querySelector("[data-public-metrics-widget]");
       const isHttp = location.protocol === "https:" || location.protocol === "http:";
       const shouldRecord = location.origin === "https://infant83.github.io";
@@ -1169,6 +1167,7 @@
 
       async function loadSummary() {
         const url = new URL(endpoint + "/summary");
+        url.searchParams.append("site", "profile");
         url.searchParams.append("path", pagePath);
         const response = await fetch(url.toString(), { method: "GET", mode: "cors", cache: "no-store" });
         if (!response.ok) {

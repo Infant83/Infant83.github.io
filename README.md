@@ -24,6 +24,25 @@ The current version is designed as a calm, scholaric one-page profile with:
   The downloadable English CV linked from the site.
 - `Hyun-Jung_Kim_CV_Korean.pdf`
   The downloadable Korean CV linked from the site.
+- `ko.html`
+  Korean public profile page.
+
+## Public Metrics
+
+The small view and average active-time pills in the header use a Cloudflare Worker/D1 API:
+
+- endpoint: `https://infant83-public-metrics.infant83.workers.dev`
+- worker source: `../../AI_Tech_Review/.automation/cloudflare/ai-tech-review-public-metrics/`
+
+The Worker treats `https://infant83.github.io/` as the parent public site and groups child paths by site id:
+
+- `profile`: `/`, `/ko.html`
+- `ai-tech-review`: `/AI_Tech_Review/`
+- `ax-camp`: `/Lets_AX_EXE/`
+- `gitlab-lectures`: `/GitLab-Onboarding-Lectures/`
+- `ml-math`: `/ML_math/`
+
+The API stores only path-level aggregate counters and engagement totals. It does not store IP addresses, User-Agent strings, cookies, or personal identifiers.
 
 ## Content Direction
 
