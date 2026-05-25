@@ -434,7 +434,7 @@
     }
 
     .scholar-grid {
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     }
 
     .principles {
@@ -458,6 +458,83 @@
     .card p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .research-map {
+      margin-top: 1.4rem;
+      padding-top: 1.35rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .research-map-heading {
+      display: grid;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .research-map-heading h3 {
+      margin: 0;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+
+    .research-map-heading p:last-child {
+      margin: 0;
+      max-width: 56rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .topic-group {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.48);
+      padding: 0.85rem 1rem;
+    }
+
+    .topic-group summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .topic-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .topic-group summary::after {
+      content: "+";
+      color: var(--muted);
+      font-family: "Work Sans", "Noto Sans KR", sans-serif;
+      font-weight: 700;
+    }
+
+    .topic-group[open] summary::after {
+      content: "-";
+    }
+
+    .topic-group ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .topic-group li + li {
+      margin-top: 0.35rem;
     }
 
     .future-card {
@@ -685,6 +762,7 @@
       .work-grid,
       .asset-grid,
       .scholar-grid,
+      .topic-grid,
       .principles,
       .contact-grid {
         grid-template-columns: 1fr;
@@ -1004,7 +1082,7 @@
           <p class="kicker">연구</p>
           <h2>주요 논문, 연구 도구, 연구 주제</h2>
           <p>
-            이 공개 페이지에는 대표 항목만 담았습니다. 전체 논문 목록과 세부 학술 이력은 CV에서 확인할 수 있습니다.
+            #AI-for-materials, #phase-transition, #topological-materials, #chiral-CDW, #scientific-software를 제일원리 계산, 양자화학, tight-binding 워크플로와 함께 다뤄왔습니다.
           </p>
         </div>
 
@@ -1014,15 +1092,23 @@
             <ul class="list">
               <li>
                 <strong><a href="https://sid.onlinelibrary.wiley.com/doi/abs/10.1002/sdtp.17753" target="_blank" rel="noreferrer">Machine Learning Strategy Towards Inverse Design of Blue TADF Emitter</a></strong>
-                <span>SID Symposium Digest of Technical Papers, 2024.</span>
-              </li>
-              <li>
-                <strong><a href="https://doi.org/10.1038/s41524-022-00927-z" target="_blank" rel="noreferrer">Simultaneous enhancement in electrical conductivity and Seebeck coefficient by single- to double-valley transition in a Dirac-like band</a></strong>
-                <span><em>npj Computational Materials</em>, 2022.</span>
+                <span>SID Symposium Digest of Technical Papers, 2024. 공동 제1저자; OLED 소재 AI/ML 연구.</span>
               </li>
               <li>
                 <strong><a href="https://doi.org/10.1103/PhysRevLett.128.046401" target="_blank" rel="noreferrer">Circular Dichroism of Emergent Chiral Stacking Orders in Quasi-One-Dimensional Charge Density Waves</a></strong>
-                <span><em>Physical Review Letters</em>, 2022.</span>
+                <span><em>Physical Review Letters</em> 128, 046401 (2022). 교신저자.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevB.95.180101" target="_blank" rel="noreferrer">Origins of the structural phase transitions in MoTe<sub>2</sub> and WTe<sub>2</sub></a></strong>
+                <span><em>Physical Review B</em> 95, 180101(R) (2017). 제1저자; Rapid Communication.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevB.93.041404" target="_blank" rel="noreferrer">Competing Magnetic Orderings and Tunable Topological States in Two-Dimensional Hexagonal Organometallic Lattices</a></strong>
+                <span><em>Physical Review B</em> 93, 041404(R) (2016). 제1저자; KIAS 선정 우수 연구성과.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevLett.110.116801" target="_blank" rel="noreferrer">Driving Force of Phase Transition in Indium Nanowires on Si(111)</a></strong>
+                <span><em>Physical Review Letters</em> 110, 116801 (2013). 제1저자.</span>
               </li>
             </ul>
             <div class="tag-row card-links">
@@ -1048,24 +1134,54 @@
             </ul>
           </article>
 
-          <article class="card">
-            <p class="card-eyebrow">연구 주제</p>
-            <p>
-              계산재료과학, 제일원리 계산, tight-binding 워크플로, 역설계, 재료 탐색을 위한 AI/ML, 양자 최적화, 해석 가능하고 재사용 가능한 과학 소프트웨어에 관심을 두고 있습니다.
-            </p>
-            <div class="tag-row" style="margin-top: 1rem;">
-              <span class="tag">DFT와 양자화학</span>
-              <span class="tag">AI/ML 워크플로</span>
-              <span class="tag">역설계</span>
-              <span class="tag">위상 물질</span>
-              <span class="tag">오픈소스 도구</span>
-            </div>
-          </article>
         </div>
 
-        <p class="section-note">
-          주요 게재지는 <em>Physical Review Letters</em>, <em>Physical Review B</em>, <em>Physical Review Materials</em>, ACS journals, <em>Scientific Reports</em>, <em>npj Computational Materials</em> 등을 포함합니다.
-        </p>
+        <div class="research-map" aria-labelledby="research-map-title">
+          <div class="research-map-heading">
+            <p class="card-eyebrow">Research map</p>
+            <h3 id="research-map-title">주제별로 묶어 본 연구 기록</h3>
+            <p>
+              전체 논문 목록과 인용 기록은 CV와 Google Scholar 프로필에서 확인할 수 있습니다.
+            </p>
+          </div>
+          <div class="topic-grid">
+            <details class="topic-group">
+              <summary>#AI-for-materials</summary>
+              <ul>
+                <li>DFT 기반 학습 데이터와 graph neural network를 활용한 OLED emitter 역설계.</li>
+                <li>시뮬레이션 결과를 재료 스크리닝과 물성 예측으로 연결하는 AI/ML 워크플로.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#phase-transition</summary>
+              <ul>
+                <li>Si(111) 위 indium nanowire, MoTe<sub>2</sub>/WTe<sub>2</sub>, 저차원 구조 안정성 연구.</li>
+                <li>상전이를 만드는 전자구조, 결합 상태, 에너지 안정성 변화를 제일원리 계산으로 분석.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#topological-materials</summary>
+              <ul>
+                <li>2D organometallic lattice, 자기질서, quantum anomalous Hall state, valley/spin response.</li>
+                <li>PRB Rapid, PRL, Physical Review Materials 논문으로 이어진 위상물질 연구.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#chiral-CDW</summary>
+              <ul>
+                <li>준1차원 charge density wave의 chiral stacking order와 circular dichroism 응답.</li>
+                <li>Berry curvature와 위상 후처리 워크플로를 VASPBERRY 개발 경험과 함께 확장.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#scientific-software</summary>
+              <ul>
+                <li>TBFIT, VASPBERRY, VASPBAUM으로 이어지는 tight-binding, topology, VASP 분석 도구.</li>
+                <li>해석 가능한 전자구조 계산을 재사용 가능한 연구 워크플로로 정리.</li>
+              </ul>
+            </details>
+          </div>
+        </div>
 
         <article class="card future-card">
           <p class="card-eyebrow">Future Work</p>

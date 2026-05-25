@@ -433,7 +433,7 @@
     }
 
     .scholar-grid {
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     }
 
     .principles {
@@ -457,6 +457,83 @@
     .card p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .research-map {
+      margin-top: 1.4rem;
+      padding-top: 1.35rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .research-map-heading {
+      display: grid;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .research-map-heading h3 {
+      margin: 0;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+
+    .research-map-heading p:last-child {
+      margin: 0;
+      max-width: 56rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .topic-group {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.48);
+      padding: 0.85rem 1rem;
+    }
+
+    .topic-group summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .topic-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .topic-group summary::after {
+      content: "+";
+      color: var(--muted);
+      font-family: "Work Sans", sans-serif;
+      font-weight: 700;
+    }
+
+    .topic-group[open] summary::after {
+      content: "-";
+    }
+
+    .topic-group ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .topic-group li + li {
+      margin-top: 0.35rem;
     }
 
     .future-card {
@@ -684,6 +761,7 @@
       .work-grid,
       .asset-grid,
       .scholar-grid,
+      .topic-grid,
       .principles,
       .contact-grid {
         grid-template-columns: 1fr;
@@ -1003,7 +1081,7 @@
           <p class="kicker">Scholarship</p>
           <h2>Selected publications, tools, and research themes</h2>
           <p>
-            This public page is intentionally selective. The full publication list, talks, and detailed academic record remain in the downloadable CV.
+            #AI-for-materials, #phase-transition, #topological-materials, #chiral-CDW, and #scientific-software, built around first-principles, quantum-chemical, and tight-binding workflows.
           </p>
         </div>
 
@@ -1013,15 +1091,23 @@
             <ul class="list">
               <li>
                 <strong><a href="https://sid.onlinelibrary.wiley.com/doi/abs/10.1002/sdtp.17753" target="_blank" rel="noreferrer">Machine Learning Strategy Towards Inverse Design of Blue TADF Emitter</a></strong>
-                <span>SID Symposium Digest of Technical Papers, 2024.</span>
-              </li>
-              <li>
-                <strong><a href="https://doi.org/10.1038/s41524-022-00927-z" target="_blank" rel="noreferrer">Simultaneous enhancement in electrical conductivity and Seebeck coefficient by single- to double-valley transition in a Dirac-like band</a></strong>
-                <span><em>npj Computational Materials</em>, 2022.</span>
+                <span>SID Symposium Digest of Technical Papers, 2024. Co-first author; OLED materials AI/ML.</span>
               </li>
               <li>
                 <strong><a href="https://doi.org/10.1103/PhysRevLett.128.046401" target="_blank" rel="noreferrer">Circular Dichroism of Emergent Chiral Stacking Orders in Quasi-One-Dimensional Charge Density Waves</a></strong>
-                <span><em>Physical Review Letters</em>, 2022.</span>
+                <span><em>Physical Review Letters</em> 128, 046401 (2022). Corresponding author.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevB.95.180101" target="_blank" rel="noreferrer">Origins of the structural phase transitions in MoTe<sub>2</sub> and WTe<sub>2</sub></a></strong>
+                <span><em>Physical Review B</em> 95, 180101(R) (2017). First author; Rapid Communication.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevB.93.041404" target="_blank" rel="noreferrer">Competing Magnetic Orderings and Tunable Topological States in Two-Dimensional Hexagonal Organometallic Lattices</a></strong>
+                <span><em>Physical Review B</em> 93, 041404(R) (2016). First author; KIAS selected research achievement.</span>
+              </li>
+              <li>
+                <strong><a href="https://doi.org/10.1103/PhysRevLett.110.116801" target="_blank" rel="noreferrer">Driving Force of Phase Transition in Indium Nanowires on Si(111)</a></strong>
+                <span><em>Physical Review Letters</em> 110, 116801 (2013). First author.</span>
               </li>
             </ul>
             <div class="tag-row card-links">
@@ -1047,24 +1133,54 @@
             </ul>
           </article>
 
-          <article class="card">
-            <p class="card-eyebrow">Research themes</p>
-            <p>
-              Computational materials science, first-principles simulation, tight-binding workflows, inverse design, AI and ML for materials discovery, quantum optimization, and scientific software that remains interpretable and reusable.
-            </p>
-            <div class="tag-row" style="margin-top: 1rem;">
-              <span class="tag">DFT and quantum chemistry</span>
-              <span class="tag">AI/ML workflows</span>
-              <span class="tag">Inverse design</span>
-              <span class="tag">Topological materials</span>
-              <span class="tag">Open-source tooling</span>
-            </div>
-          </article>
         </div>
 
-        <p class="section-note">
-          Selected venues across the record include <em>Physical Review Letters</em>, <em>Physical Review B</em>, <em>Physical Review Materials</em>, ACS journals, <em>Scientific Reports</em>, and <em>npj Computational Materials</em>.
-        </p>
+        <div class="research-map" aria-labelledby="research-map-title">
+          <div class="research-map-heading">
+            <p class="card-eyebrow">Research map</p>
+            <h3 id="research-map-title">Selected work grouped by topic</h3>
+            <p>
+              The full publication list and citation record remain in the CV and Google Scholar profile.
+            </p>
+          </div>
+          <div class="topic-grid">
+            <details class="topic-group">
+              <summary>#AI-for-materials</summary>
+              <ul>
+                <li>OLED emitter inverse design using DFT-based training data and graph neural networks.</li>
+                <li>AI/ML workflows for simulation-backed materials screening and property prediction.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#phase-transition</summary>
+              <ul>
+                <li>Indium nanowires on Si(111), MoTe<sub>2</sub>/WTe<sub>2</sub>, and low-dimensional structural stability.</li>
+                <li>First-principles analysis of electronic and bonding changes behind phase transitions.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#topological-materials</summary>
+              <ul>
+                <li>2D organometallic lattices, magnetic ordering, quantum anomalous Hall states, and valley/spin responses.</li>
+                <li>Topological materials work across PRB Rapid, PRL, and Physical Review Materials publications.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#chiral-CDW</summary>
+              <ul>
+                <li>Chiral stacking orders in quasi-1D charge density waves and circular dichroism response.</li>
+                <li>Connected to VASPBERRY-based Berry curvature and topological post-processing workflows.</li>
+              </ul>
+            </details>
+            <details class="topic-group">
+              <summary>#scientific-software</summary>
+              <ul>
+                <li>TBFIT, VASPBERRY, and VASPBAUM as reusable tools for tight-binding, topology, and VASP analysis.</li>
+                <li>Open-source research workflows designed around interpretable electronic-structure calculations.</li>
+              </ul>
+            </details>
+          </div>
+        </div>
 
         <article class="card future-card">
           <p class="card-eyebrow">Future Work</p>
