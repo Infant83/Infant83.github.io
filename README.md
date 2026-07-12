@@ -8,10 +8,11 @@ Site URL: <https://infant83.github.io/>
 
 This repository hosts a lightweight public profile site rather than the full academic CV.
 
-The current version is designed as a calm, scholaric one-page profile with:
+The current version is designed as a calm, scholarly one-page profile with:
 
 - a concise public-facing introduction
-- current work in AI governance and scientific computing
+- computational materials physics and scientific software
+- current enterprise AI and quantum-technology coordination work
 - career trajectory
 - selected publications and open-source research tools
 - a downloadable CV PDF
@@ -27,32 +28,16 @@ The current version is designed as a calm, scholaric one-page profile with:
 - `ko.html`
   Korean public profile page.
 
-## Public Metrics
-
-The small view and average active-time pills in the header use a Cloudflare Worker/D1 API:
-
-- endpoint: `https://infant83-public-metrics.infant83.workers.dev`
-- worker source: `../../AI_Tech_Review/.automation/cloudflare/ai-tech-review-public-metrics/`
-
-The Worker treats `https://infant83.github.io/` as the parent public site and groups child paths by site id:
-
-- `profile`: `/`, `/ko.html`
-- `ai-tech-review`: `/AI_Tech_Review/`
-- `ax-camp`: `/Lets_AX_EXE/`
-- `gitlab-lectures`: `/GitLab-Onboarding-Lectures/`
-- `ml-math`: `/ML_math/`
-
-The API stores only path-level aggregate counters and engagement totals. It does not store IP addresses, User-Agent strings, cookies, or personal identifiers.
-
 ## Content Direction
 
 The site is intentionally more compact than the full CV.
 
 It emphasizes:
 
-- AI governance
 - computational materials physics
+- scientific software
 - materials discovery
+- enterprise AI project support
 - internal AI education
 - selected scholarly proof rather than exhaustive publication listing
 
@@ -72,12 +57,13 @@ When the CV changes, the usual workflow is:
 3. The script backs up the `.tex` file when the current source differs from the latest backup.
 4. The script rebuilds the PDF and syncs `Hyun-Jung_Kim_CV.pdf` into this repository.
 5. For the Korean CV, run `python ../build_cv_korean.py`; it syncs `Hyun-Jung_Kim_CV_Korean.pdf`.
-5. Review `index.html` only if the public-facing narrative also needs to change.
+5. Review `index.html` and `ko.html` if the public-facing narrative also needs to change.
 6. Commit and push this repository to update GitHub Pages.
 
 ## Notes
 
 - This repo is for the public profile site only.
+- Cloudflare Web Analytics is the only page analytics integration retained by the site.
 - Detailed change history for resume and career narrative is tracked in the parent project:
   - `../CAREER_CHANGELOG.md`
 - Local backup and verification folders such as `.backup/` are ignored for deployment.
