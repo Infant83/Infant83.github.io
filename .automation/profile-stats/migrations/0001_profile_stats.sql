@@ -26,4 +26,3 @@ CREATE TABLE profile_events (
   created_at INTEGER NOT NULL
 );
 CREATE INDEX profile_events_expiry ON profile_events(created_at);
-
