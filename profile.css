@@ -1,0 +1,76 @@
+:root {
+  --site-header-height: 5.5rem;
+}
+
+.site-header {
+  transition: transform 220ms ease, opacity 180ms ease;
+}
+
+.site-header.is-hidden {
+  transform: translateY(-105%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-header:has(:focus-visible) {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+  transition: none;
+}
+
+.section {
+  scroll-margin-top: calc(var(--site-header-height) + 1.25rem);
+}
+
+.site-activity {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.activity-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin: 0;
+}
+
+.activity-counts > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.activity-counts dt,
+.activity-counts dd {
+  margin: 0;
+}
+
+.activity-counts dd {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.activity-note {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.73rem;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --site-header-height: 12rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
+}

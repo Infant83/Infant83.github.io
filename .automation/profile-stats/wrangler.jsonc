@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "infant83-profile-stats",
+  "account_id": "50af30da8804e3582dde98039e428153",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-08-06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [{ "pattern": "stats.infant83.io", "custom_domain": true }],
+  "observability": { "enabled": false },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "infant83-profile-stats",
+    "database_id": "5a795810-9013-4637-ba68-8ca85519573c",
+    "migrations_dir": "migrations"
+  }],
+  "triggers": { "crons": ["23 18 * * *"] }
+}

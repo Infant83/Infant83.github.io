@@ -1,3 +1,5 @@
 .backup/
 verification/
 .tmh/
+node_modules/
+.wrangler/
