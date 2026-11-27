@@ -59,7 +59,7 @@ When the CV changes, the usual workflow is:
 3. The script backs up the `.tex` file when the current source differs from the latest backup.
 4. The script rebuilds the private workspace PDF. For the Korean CV, run `python ../build_cv_korean.py`.
 5. Review both PDFs, then explicitly sync the approved master PDFs with `python scripts/profile.py sync-cv --apply` from the private workspace.
-6. Review `index.html` and `ko.html` if the public-facing narrative also needs to change.
+6. Review `index.html` and `ko.html` if the public-facing narrative also needs to change. When replacing a PDF, update its download links' `v` query to the first 12 characters of the new file's SHA-256 so existing caches do not serve the previous version.
 7. Commit and push this public repository to update GitHub Pages. Do not copy TeX sources or application records into it.
 
 ## Notes
